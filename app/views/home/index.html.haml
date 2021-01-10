@@ -1,3 +1,6 @@
 %h1 Hello World
 
-= link_to 'Awesome link but looks like button', '#', class: 'btn btn-primary'
+- unless user_signed_in?
+    = link_to 'Sign in', new_user_session_path, class: 'btn btn-primary'
+- else 
+    = link_to 'Sign Out', destroy_user_session_path, class: 'btn btn-danger', method: :delete
