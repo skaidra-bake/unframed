@@ -1,0 +1,8 @@
+%h1= @conversation.subject
+- @conversation.receipts_for(current_user).each do |r|
+    %div
+        %div #{r.message.sender.username} commented:
+        %p= r.message.body
+= form_tag conversation_messages_path(@conversation), method: :post do
+    %div= text_area_tag :body
+    = submit_tag
