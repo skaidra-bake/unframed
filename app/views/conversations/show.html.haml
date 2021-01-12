@@ -6,3 +6,5 @@
 = form_tag conversation_messages_path(@conversation), method: :post do
     %div= text_area_tag :body
     = submit_tag
+%br/
+= link_to 'Back to Inbox', inbox_conversations_path
