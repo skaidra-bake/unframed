@@ -1,4 +1,10 @@
 = form_with(model: post, local: true) do |f|
-    = f.label :description
-    = f.text_field :description
+    .form-group
+        = f.label :image
+        = f.file_field :image
+        - if post.image.persisted?
+            = image_tag post.image
+    .form-group
+        = f.label :description
+        = f.text_field :description
     = f.submit 'Create post', class: 'btn btn-primary', method: :post
