@@ -4,4 +4,8 @@ Rails.application.routes.draw do
   root 'home#index'
 
   resources :posts
+  
+  resources :conversations do
+    resources :messages
+  end
 end

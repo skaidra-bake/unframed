@@ -5,6 +5,16 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   
   has_many :posts
+
+  acts_as_messageable
   
   validates :username, presence: true, uniqueness: { case_sensitive: false }
+
+  def name
+    username
+  end
+
+  def mailboxer_email(object)
+    email
+  end
 end
