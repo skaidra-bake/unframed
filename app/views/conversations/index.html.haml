@@ -1,0 +1,5 @@
+%h1 Conversations
+- @conversations.each do |c|
+    %div
+    = link_to c.subject, conversation_path(c)
+%br/
