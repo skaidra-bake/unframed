@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/mailboxer/mailboxer.git
+  revision: 3e148858879110c3258b46152b11e5bfc514dc04
+  specs:
+    mailboxer (0.15.1)
+      carrierwave (>= 0.5.8)
+      rails (>= 5.0.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -76,6 +84,13 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (~> 1.5)
       xpath (~> 3.2)
+    carrierwave (2.1.0)
+      activemodel (>= 5.0.0)
+      activesupport (>= 5.0.0)
+      addressable (~> 2.6)
+      image_processing (~> 1.1)
+      mimemagic (>= 0.3.0)
+      mini_mime (>= 0.1.3)
     childprocess (3.0.0)
     coderay (1.1.3)
     concurrent-ruby (1.1.7)
@@ -288,6 +303,7 @@ DEPENDENCIES
   image_processing (~> 1.2)
   jbuilder (~> 2.7)
   listen (~> 3.3)
+  mailboxer!
   mysql2 (~> 0.5)
   pry-rails
   puma (~> 5.0)
