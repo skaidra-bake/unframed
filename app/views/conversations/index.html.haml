@@ -1,6 +1,13 @@
 %h1 Conversations
+%hr/
+Inbox (#{current_user.mailbox.inbox.count}) | 
+All Conversations (#{current_user.mailbox.conversations.count}) | 
+Sent (#{current_user.mailbox.sentbox.count}) | 
+Trash (#{current_user.mailbox.trash.count})
+%hr/
+Total (#{@conversations.count})
 - @conversations.each do |c|
     %div
-    = link_to c.subject, conversation_path(c)
+        = link_to c.subject, conversation_path(c)
 %br/
 = link_to 'New Conversation', new_conversation_path
