@@ -1,0 +1,11 @@
+%h1 All posts
+-@posts.each do |post|
+    =post.user.username
+    %br
+    =post.description
+    %br
+    =post.created_at
+    %br
+    =link_to 'Show', post_path(post)
+    %br
+= link_to 'Back', root_path
