@@ -1,6 +1,6 @@
 %h1 Conversations
 %hr/
-Inbox (#{current_user.mailbox.inbox.count}) | 
+Inbox (#{current_user.mailbox.inbox.unread(current_user).count}) | 
 All Conversations (#{current_user.mailbox.conversations.count}) | 
 Sent (#{current_user.mailbox.sentbox.count}) | 
 Trash (#{current_user.mailbox.trash.count})
@@ -8,6 +8,9 @@ Trash (#{current_user.mailbox.trash.count})
 Total (#{@conversations.count})
 - @conversations.each do |c|
     %div
-        = link_to c.subject, conversation_path(c)
+        - if c.is_unread?(current_user)
+            %strong= link_to c.subject, conversation_path(c)
+        - else
+            = link_to c.subject, conversation_path(c)
 %br/
 = link_to 'New Conversation', new_conversation_path
