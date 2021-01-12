@@ -2,7 +2,8 @@
 - unless user_signed_in?
     = link_to 'Sign in', new_user_session_path, class: 'btn btn-primary'
 - else 
-    =link_to 'Create a post', new_post_path, class: 'btn btn-success'
+    = link_to 'Create a post', new_post_path, class: 'btn btn-success'
     = link_to 'All posts', posts_path, class: 'btn btn-success'
+    = link_to 'Inbox', inbox_conversations_path, class: 'btn btn-primary'
     %br/
     = link_to 'Sign Out', destroy_user_session_path, class: 'btn btn-danger', method: :delete
