@@ -1,4 +1,7 @@
 %h1= @conversation.subject
+%h4 Participants:
+= @conversation.participants.map(&:username).join(", ")
+%hr/
 - @conversation.receipts_for(current_user).each do |r|
     %div
         %div #{r.message.sender.username} commented:
