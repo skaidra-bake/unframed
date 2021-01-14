@@ -2,8 +2,19 @@ class MessagesController < ApplicationController
     before_action :set_conversation
 
     def create
-        receipt = current_user.reply_to_conversation(@conversation, params[:body])
-        redirect_to conversation_path(receipt.conversation)
+        receipt = current_user.reply_to_conversation(
+            @conversation,
+            params[:mailboxer_message][:body],
+            nil,
+            true,
+            true,
+            params[:mailboxer_message][:attachment]
+        )
+        # conversation, reply_body, subject=nil, should_untrash=true, sanitize_text=true, attachment=nil
+        pp "&---" * 10
+        pp receipt
+        pp @conversation
+        redirect_to conversation_path(@conversation)
     end
 
     private

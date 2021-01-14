@@ -21,6 +21,7 @@ class ConversationsController < ApplicationController
     def show
         @conversation = current_user.mailbox.conversations.find(params[:id])
         @conversation.mark_as_read(current_user)
+        @message = Mailboxer::Message.new
     end
 
     def new

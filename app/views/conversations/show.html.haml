@@ -5,9 +5,13 @@
 - @conversation.receipts_for(current_user).each do |r|
     %div
         %div #{r.message.sender.username} commented:
-        %p= r.message.body
-= form_tag conversation_messages_path(@conversation), method: :post do
-    %div= text_area_tag :body
-    = submit_tag
+        = simple_format r.message.body
+        - if r.message.attachment?
+            %p Attachment:
+            = link_to r.message.attachment.file.filename, r.message.attachment.url, target: :blank        
+= form_for @message, url: conversation_messages_path(@conversation) do |f|
+    %div= f.text_area :body
+    %div= f.file_field :attachment
+    = f.submit
 %br/
 = link_to 'Back to Inbox', inbox_conversations_path
