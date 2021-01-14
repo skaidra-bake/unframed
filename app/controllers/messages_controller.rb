@@ -11,9 +11,6 @@ class MessagesController < ApplicationController
             params[:mailboxer_message][:attachment]
         )
         # conversation, reply_body, subject=nil, should_untrash=true, sanitize_text=true, attachment=nil
-        pp "&---" * 10
-        pp receipt
-        pp @conversation
         redirect_to conversation_path(@conversation)
     end
 
