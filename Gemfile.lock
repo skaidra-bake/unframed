@@ -304,6 +304,7 @@ DEPENDENCIES
   jbuilder (~> 2.7)
   listen (~> 3.3)
   mailboxer!
+  mini_magick
   mysql2 (~> 0.5)
   pry-rails
   puma (~> 5.0)
