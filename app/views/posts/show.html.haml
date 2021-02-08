@@ -1,2 +1,15 @@
-%h1 Posts#show
-%p Find me in app/views/posts/show.html.haml
+.page-header
+    =link_to 'All posts', posts_path, class: 'btn btn-default'
+    =link_to 'Edit', edit_post_path(@post), class: 'btn btn-primary'
+    %h3 Show post
+%dl.dl-horizontal
+    - if @post.image.persisted?
+        %dt Image:
+        %dd= image_tag @post.image.variant(resize_to_limit: [150, nil])
+    // %dt Image:
+    // %dd= @post.image
+    %dt Description:
+    %dd= @post.description
+%h3 Comments:
+= render partial: "comments/form", locals: { commentable: @post }
+= render @post.comments.where(parent_id: nil)

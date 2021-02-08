@@ -1,0 +1,6 @@
+= form_with model: [commentable, Comment.new], local: true, html: {class: local_assigns[:class], data: {target: local_assigns[:target] }} do |f|
+    .form-group
+        = f.text_area :body, placeholder: 'Add a comment', class: 'form-controll'
+    .form-group
+        = f.hidden_field :parent_id, value: local_assigns[:parent_id]
+        = f.submit class: 'btn btn-primary'
