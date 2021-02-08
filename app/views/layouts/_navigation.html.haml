@@ -1,0 +1,15 @@
+%ul.nav.justify-content-center
+  %li.nav-item
+    = link_to 'Home', root_path, class: 'nav-link'  
+  - unless user_signed_in?
+    %li.nav-item
+      = link_to 'Sign in', new_user_session_path, class: 'nav-link'
+  - else
+    %li.nav-item
+      = link_to 'Posts', posts_path, class: 'nav-link'
+    %li.nav-item
+      = link_to 'Profile', posts_path, class: 'nav-link'
+    %li.nav-item
+      = link_to 'Inbox', inbox_conversations_path, class: 'nav-link'
+    %li.nav-item
+      = link_to 'Sign Out', destroy_user_session_path, class: 'nav-link', method: :delete
