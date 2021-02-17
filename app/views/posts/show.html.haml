@@ -12,9 +12,9 @@
     %dd= @post.description
 \#{@post.favoritors.count} like this
 - if current_user.favorited?(@post)
-    =link_to 'Unlike', '#'
+    =link_to 'Unlike', post_unlike_path(@post), method: :patch, class: 'unlike'
 - else
-    =link_to 'Like', post_like_path(@post), method: :patch
+    =link_to 'Like', post_like_path(@post), method: :patch, class: 'like'
 %h3 Comments:
 = render partial: "comments/form", locals: { commentable: @post }
 = render @post.comments.where(parent_id: nil)

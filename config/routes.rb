@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :posts do
     resources :comments, module: :posts
     resource :like, module: :posts, only: [:update]
+    resource :unlike, module: :posts, only: [:update]
   end
   
   resources :conversations do
