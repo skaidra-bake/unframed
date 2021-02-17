@@ -31,6 +31,7 @@ gem 'bootsnap', '>= 1.4.4', require: false
 gem 'rexml'
 gem 'mailboxer', github: 'mailboxer/mailboxer'
 gem "mini_magick"
+gem 'acts_as_favoritor'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
