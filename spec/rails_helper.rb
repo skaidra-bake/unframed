@@ -67,4 +67,11 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+
+  # selenium chromedriver
+  config.before(:each, type: :system) do
+    driven_by :selenium, using: :chrome
+  end
+  # helper for logging in through devise
+  config.include Warden::Test::Helpers
 end
