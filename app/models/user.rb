@@ -7,6 +7,7 @@ class User < ApplicationRecord
   has_many :posts
 
   acts_as_messageable
+  acts_as_favoritor
   
   validates :username, presence: true, uniqueness: { case_sensitive: false }
 
