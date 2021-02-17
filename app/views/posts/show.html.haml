@@ -10,6 +10,11 @@
     // %dd= @post.image
     %dt Description:
     %dd= @post.description
+\#{@post.favoritors.count} like this
+- if current_user.favorited?(@post)
+    =link_to 'Unlike', '#'
+- else
+    =link_to 'Like', post_like_path(@post), method: :patch
 %h3 Comments:
 = render partial: "comments/form", locals: { commentable: @post }
 = render @post.comments.where(parent_id: nil)
