@@ -70,7 +70,9 @@ RSpec.configure do |config|
 
   # selenium chromedriver
   config.before(:each, type: :system) do
-    driven_by :selenium, using: :chrome
+    # whenever you want to see the browser, change it to:
+    # driven_by :selenium, using: :chrome
+    driven_by :selenium_chrome_headless, using: :chrome
   end
   # helper for logging in through devise
   config.include Warden::Test::Helpers
