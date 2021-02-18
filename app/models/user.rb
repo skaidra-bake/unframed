@@ -8,6 +8,8 @@ class User < ApplicationRecord
 
   acts_as_messageable
   acts_as_favoritor
+  acts_as_followable
+  acts_as_follower
   
   validates :username, presence: true, uniqueness: { case_sensitive: false }
 
