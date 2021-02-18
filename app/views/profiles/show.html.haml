@@ -1,4 +1,4 @@
 - unless current_user.following?(@user)
     =link_to 'Follow', profile_follow_path(@user), method: :patch, class: 'follow'
 - else
-    =link_to 'Unfollow', '#'
+    =link_to 'Unfollow', profile_unfollow_path(@user), method: :patch, class: 'unfollow'

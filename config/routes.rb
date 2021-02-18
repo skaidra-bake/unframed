@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   
   resources :profiles, except: [:new] do
     resource :follow, module: :profiles, only: [:update]
+    resource :unfollow, module: :profiles, only: [:update]
   end
 
   root 'home#index'
