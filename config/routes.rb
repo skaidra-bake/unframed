@@ -17,6 +17,10 @@ Rails.application.routes.draw do
       get :trash
     end
   end
+  
+  resources :profiles, except: [:new] do
+    resource :follow, module: :profiles, only: [:update]
+  end
 
   root 'home#index'
 end
