@@ -34,6 +34,7 @@ gem "mini_magick"
 gem 'acts_as_favoritor'
 gem 'acts_as_follower', github: 'tcocca/acts_as_follower', branch: 'master'
 gem 'activeadmin'
+gem 'searchkick'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
