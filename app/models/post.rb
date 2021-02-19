@@ -4,4 +4,6 @@ class Post < ApplicationRecord
   has_many :comments, as: :commentable
 
   acts_as_favoritable
+  
+  searchkick
 end
