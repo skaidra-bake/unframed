@@ -1,0 +1,31 @@
+%nav.navbar.navbar-expand-lg.bg-primary
+  .container.custom
+    .div
+      .navbar-brand
+        = link_to 'Unframed', root_path, class: 'nav-link'
+    .div.custom
+      %form.form-inline
+        %input.form-control{"aria-label" => "Search", :placeholder => "Search", :type => "search"}/
+        %button.btn{:type => "submit"}
+          %i.fas.fa-search{"aria-hidden" => "true"}
+    .div.custom
+      #navbarNav.collapse.navbar-collapse
+        .navbar-nav
+          .nav-item
+            = link_to posts_path, class: 'nav-link' do 
+              %i.fas.fa-home
+      - unless user_signed_in?
+        .div
+          .nav-item
+            = link_to 'Sign in', new_user_session_path, class: 'nav-link'
+      - else
+        .div.custom
+          .nav-item
+            = link_to inbox_conversations_path, class: 'nav-link' do
+              %i.fas.fa-inbox 
+          .nav-item
+            = link_to profile_path(current_user), class: 'nav-link' do
+              %i.far.fa-user
+        .div 
+          .nav-item
+            = link_to 'Sign Out', destroy_user_session_path, class: 'nav-link', method: :delete
