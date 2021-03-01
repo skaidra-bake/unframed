@@ -1,4 +1,6 @@
 %h1 All posts
+= link_to 'Create a post', new_post_path, class: 'btn btn-success'
+%hr/
 -@posts.each do |post|
     =post.user.username
     %br

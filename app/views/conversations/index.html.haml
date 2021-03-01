@@ -1,4 +1,5 @@
 %h1 Conversations
+= link_to 'New Message', new_conversation_path, class: 'btn btn-primary'
 %hr/
 Inbox (#{current_user.mailbox.inbox.unread(current_user).count}) | 
 All Conversations (#{current_user.mailbox.conversations.count}) | 
