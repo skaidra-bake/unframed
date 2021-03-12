@@ -1,4 +1,34 @@
-- unless current_user.following?(@user)
-    =link_to 'Follow', profile_follow_path(@user), method: :patch, class: 'follow'
-- else
-    =link_to 'Unfollow', profile_unfollow_path(@user), method: :patch, class: 'unfollow'
+.col-12.col-md-12.mt-5
+    .card.profile-widget
+        .profile-widget-header
+            %img.rounded-circle.profile-widget-picture.ml-5{:alt => "image", :src => "https://randomuser.me/api/portraits/women/11.jpg"}/
+            .profile-widget-items
+                %h2.profile-widget-name= current_user.username
+                .profile-widget-buttons.mt-2.ml-3
+                    = show_link_if current_user_profile?, 'Edit profile', edit_user_registration_path(@user), class: 'btn btn-sm btn-primary'
+                    = show_link_if not_following_user?, 'Follow', profile_follow_path(@user), method: :patch, class: 'follow btn btn-sm btn-primary'
+                    = show_link_if following_user?, 'Unfollow', profile_unfollow_path(@user), method: :patch, class: 'unfollow btn btn-sm btn-primary'
+                    -# - if current_user == @user
+                    -#     = link_to 'Edit profile', edit_user_registration_path(@user), method: :patch, class: 'follow btn btn-sm btn-primary'
+                    -# - elsif !current_user.following?(@user)
+                    -#     = link_to 'Follow', profile_follow_path(@user), method: :patch, class: 'follow btn btn-sm btn-primary'
+                    -# - else
+                    -#     = link_to 'Unfollow', profile_unfollow_path(@user), method: :patch, class: 'unfollow btn-sm btn-primary'
+                    -# = link_to_if(current_user_profile?, 'Edit profile', edit_user_registration_path(@user), method: :patch, class: 'follow btn btn-sm btn-primary')
+            .profile-widget-items
+                .profile-widget-item
+                    .profile-widget-item-label Posts
+                    .profile-widget-item-value= @user.posts.count
+                .profile-widget-item
+                    .profile-widget-item-label Followers
+                    .profile-widget-item-value= current_user.followers.count
+                .profile-widget-item
+                    .profile-widget-item-label Following
+                    .profile-widget-item-value= current_user.following_users.count
+        .profile-widget-description
+            .profile-widget-name
+            = current_user.full_name
+            .profile-widget-buttons.mt-2.ml-3
+            %hr
+            .text-muted.d-inline.font-weight-normal
+                = current_user.bio
