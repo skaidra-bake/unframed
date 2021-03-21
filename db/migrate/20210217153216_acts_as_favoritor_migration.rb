@@ -13,10 +13,10 @@ class ActsAsFavoritorMigration < ActiveRecord::Migration[6.1]
     end
 
     add_index :favorites,
-              ['favoritor_id', 'favoritor_type'],
+              %w[favoritor_id favoritor_type],
               name: 'fk_favorites'
     add_index :favorites,
-              ['favoritable_id', 'favoritable_type'],
+              %w[favoritable_id favoritable_type],
               name: 'fk_favoritables'
   end
 

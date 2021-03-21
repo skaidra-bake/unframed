@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   devise_for :users
   devise_for :admin_users, ActiveAdmin::Devise.config
@@ -8,7 +10,7 @@ Rails.application.routes.draw do
     resource :like, module: :posts, only: [:update]
     resource :unlike, module: :posts, only: [:update]
   end
-  
+
   resources :conversations do
     resources :messages
 
@@ -19,7 +21,7 @@ Rails.application.routes.draw do
       get :trash
     end
   end
-  
+
   resources :profiles, except: [:new] do
     resource :follow, module: :profiles, only: [:update]
     resource :unfollow, module: :profiles, only: [:update]

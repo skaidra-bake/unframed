@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe "Posts", type: :request do
-
+RSpec.describe 'Posts', type: :request do
   let(:user) { create(:user) }
   let(:user_post) { create(:post, user: user) }
 
@@ -22,11 +23,11 @@ RSpec.describe "Posts", type: :request do
       expect(response).to have_http_status(:success)
     end
   end
-  
+
   describe 'POST /create' do
     it 'creates new post' do
       post '/posts', params: { post: { description: 'This is a description' } }
-  
+
       expect(response).to redirect_to posts_path
     end
 
@@ -34,7 +35,7 @@ RSpec.describe "Posts", type: :request do
       allow_any_instance_of(Post).to receive(:save).and_return(false)
 
       post '/posts', params: { post: { description: 'This is a description' } }
-  
+
       expect(response).not_to redirect_to posts_path
       expect(response).to have_http_status(:success)
     end

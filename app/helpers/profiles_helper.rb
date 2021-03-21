@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ProfilesHelper
   def current_user_profile?
     current_user == @user
@@ -19,7 +21,7 @@ module ProfilesHelper
     if condition
       link_to(name, options, html_options)
     elsif block_given?
-      block.arity <= 1 ? capture(name, &block) : capture(name, options, html_options, &block)     
+      block.arity <= 1 ? capture(name, &block) : capture(name, options, html_options, &block)
     end
   end
 end

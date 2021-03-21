@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
@@ -23,27 +25,27 @@ gem 'jbuilder', '~> 2.7'
 # gem 'bcrypt', '~> 3.1.7'
 
 # Use Active Storage variant
-gem 'image_processing', '~> 1.2'
 gem 'devise'
 gem 'haml-rails'
+gem 'image_processing', '~> 1.2'
 # Reduces boot times through caching; required in config/boot.rb
-gem 'bootsnap', '>= 1.4.4', require: false
-gem 'rexml'
-gem 'mailboxer', github: 'mailboxer/mailboxer'
-gem "mini_magick"
+gem 'activeadmin'
 gem 'acts_as_favoritor'
 gem 'acts_as_follower', github: 'tcocca/acts_as_follower', branch: 'master'
-gem 'activeadmin'
-gem 'searchkick'
 gem 'acts-as-taggable-on', '~> 7.0'
+gem 'bootsnap', '>= 1.4.4', require: false
 gem 'friendly_id', '~> 5.4.0'
+gem 'mailboxer', github: 'mailboxer/mailboxer'
+gem 'mini_magick'
+gem 'rexml'
+gem 'searchkick'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
-  gem 'rspec-rails', '~> 4.0.1'
-  gem 'ffaker'
   gem 'dotenv-rails'
+  gem 'ffaker'
+  gem 'rspec-rails', '~> 4.0.1'
 end
 
 group :development do
@@ -54,8 +56,8 @@ group :development do
   gem 'listen', '~> 3.3'
   gem 'rack-mini-profiler', '~> 2.0'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
   gem 'pry-rails'
+  gem 'spring'
 end
 
 group :test do
@@ -63,10 +65,10 @@ group :test do
   gem 'capybara', '>= 3.26'
   gem 'selenium-webdriver'
   # Easy installation and use of web drivers to run system tests with browsers
-  gem 'webdrivers'
-  gem 'shoulda-matchers'
   gem 'factory_bot_rails'
+  gem 'shoulda-matchers'
   gem 'simplecov', require: false
+  gem 'webdrivers'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
