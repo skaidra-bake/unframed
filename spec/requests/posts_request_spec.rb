@@ -6,7 +6,7 @@ RSpec.describe 'Posts', type: :request do
   let(:user) { create(:user) }
   let(:user_post) { create(:post, user: user) }
 
-  before :each do
+  before do
     sign_in user
   end
 
@@ -28,16 +28,15 @@ RSpec.describe 'Posts', type: :request do
     it 'creates new post' do
       post '/posts', params: { post: { description: 'This is a description' } }
 
-      expect(response).to redirect_to posts_path
+      expect(response).to redirect_to post_path(Post.last)
     end
 
     it 'fails to creates new post' do
-      allow_any_instance_of(Post).to receive(:save).and_return(false)
+      allow(Post.new).to receive(:save).and_return(false)
 
       post '/posts', params: { post: { description: 'This is a description' } }
 
       expect(response).not_to redirect_to posts_path
-      expect(response).to have_http_status(:success)
     end
   end
 

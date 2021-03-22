@@ -5,16 +5,9 @@
             .profile-widget-items
                 %h2.profile-widget-name= current_user.username
                 .profile-widget-buttons.mt-2.ml-3
-                    = show_link_if current_user_profile?, 'Edit profile', edit_user_registration_path(@user), class: 'btn btn-sm btn-primary'
-                    = show_link_if not_following_user?, 'Follow', profile_follow_path(@user), method: :patch, class: 'follow btn btn-sm btn-primary'
-                    = show_link_if following_user?, 'Unfollow', profile_unfollow_path(@user), method: :patch, class: 'unfollow btn btn-sm btn-primary'
-                    -# - if current_user == @user
-                    -#     = link_to 'Edit profile', edit_user_registration_path(@user), method: :patch, class: 'follow btn btn-sm btn-primary'
-                    -# - elsif !current_user.following?(@user)
-                    -#     = link_to 'Follow', profile_follow_path(@user), method: :patch, class: 'follow btn btn-sm btn-primary'
-                    -# - else
-                    -#     = link_to 'Unfollow', profile_unfollow_path(@user), method: :patch, class: 'unfollow btn-sm btn-primary'
-                    -# = link_to_if(current_user_profile?, 'Edit profile', edit_user_registration_path(@user), method: :patch, class: 'follow btn btn-sm btn-primary')
+                    = show_link_if current_user_profile?(@user), 'Edit profile', edit_user_registration_path(@user), class: 'btn btn-sm btn-primary'
+                    = show_link_if not_following_user?(@user), 'Follow', profile_follow_path(@user), method: :patch, class: 'follow btn btn-sm btn-primary'
+                    = show_link_if following_user?(@user), 'Unfollow', profile_unfollow_path(@user), method: :patch, class: 'unfollow btn btn-sm btn-primary'
             .profile-widget-items
                 .profile-widget-item
                     .profile-widget-item-label Posts

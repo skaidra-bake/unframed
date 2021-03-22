@@ -1,20 +1,20 @@
 # frozen_string_literal: true
 
 module ProfilesHelper
-  def current_user_profile?
-    current_user == @user
+  def current_user_profile?(user)
+    current_user == user
   end
 
-  def not_current_user_profile?
-    !current_user_profile?
+  def not_current_user_profile?(user)
+    !current_user_profile?(user)
   end
 
-  def not_following_user?
-    not_current_user_profile? && !current_user.following?(@user)
+  def not_following_user?(user)
+    not_current_user_profile?(user) && !current_user.following?(user)
   end
 
-  def following_user?
-    not_current_user_profile? && current_user.following?(@user)
+  def following_user?(user)
+    not_current_user_profile?(user) && current_user.following?(user)
   end
 
   def show_link_if(condition, name, options = {}, html_options = {}, &block)

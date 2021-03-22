@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe 'Users', type: :system do
   let(:user) { create(:user, password: 'password') }
 
-  before :each do
+  before do
     login_as(user)
   end
 

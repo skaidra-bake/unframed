@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Follow < ActiveRecord::Base
+class Follow < ApplicationRecord
   extend ActsAsFollower::FollowerLib
   extend ActsAsFollower::FollowScopes
 
@@ -9,6 +9,6 @@ class Follow < ActiveRecord::Base
   belongs_to :follower,   polymorphic: true
 
   def block!
-    update_attribute(:blocked, true)
+    update(blocked: true)
   end
 end

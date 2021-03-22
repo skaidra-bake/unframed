@@ -6,7 +6,7 @@ RSpec.describe 'Users', type: :system do
   let(:user) { create(:user) }
   let(:user2) { create(:user) }
 
-  before :each do
+  before do
     login_as(user)
     user2
   end

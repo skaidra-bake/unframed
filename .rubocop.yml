@@ -17,6 +17,12 @@ Layout/LineLength:
 Metrics/BlockLength:
   Max: 50
 
+RSpec/MultipleExpectations:
+  Enabled: false
+
+RSpec/ExampleLength:
+  Enabled: 25
+
 AllCops:
   NewCops: enable
   Exclude:
@@ -24,3 +30,4 @@ AllCops:
     - 'bin/{rails,rake,bundle}'
     - 'config/initializers/{devise.rb}'
     - 'node_modules/**/*'
+    - 'app/javascript/**/*'

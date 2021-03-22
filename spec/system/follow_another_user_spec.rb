@@ -7,9 +7,10 @@ RSpec.describe 'Users', type: :system do
   let(:user2) { create(:user) }
 
   describe 'follow' do
-    before :each do
+    before do
       login_as(user)
     end
+
     it 'enables me to follow another user' do
       visit profile_path(user2)
       click_on 'Follow'
