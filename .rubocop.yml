@@ -1,3 +1,7 @@
+require:
+  - rubocop-rspec
+  - rubocop-rails
+
 Style/Encoding:
   Enabled: false
 
