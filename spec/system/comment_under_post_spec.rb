@@ -7,7 +7,6 @@ RSpec.describe 'Users', type: :system do
   let(:post) { create(:post, description: FFaker::Lorem.sentence) }
   let(:comment) { FFaker::Lorem.sentence }
 
-
   before do
     post
     login_as(user)
