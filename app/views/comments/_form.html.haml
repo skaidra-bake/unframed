@@ -3,4 +3,4 @@
         = f.text_area :body, placeholder: 'Add a comment', class: 'form-controll'
     .form-group
         = f.hidden_field :parent_id, value: local_assigns[:parent_id]
-        = f.submit class: 'btn btn-primary'
+        = f.submit 'Post Comment', class: 'btn btn-primary'
