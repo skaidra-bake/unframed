@@ -5,9 +5,7 @@
 %dl.dl-horizontal
     - if @post.image.persisted?
         %dt Image:
-        %dd= image_tag @post.image.variant(resize_to_limit: [150, nil])
-    // %dt Image:
-    // %dd= @post.image
+        %dd= image_tag @post.image.variant(resize_to_limit: [500, nil])
     %dt Description:
     %dd= @post.description
 \#{@post.favoritors.count} like this

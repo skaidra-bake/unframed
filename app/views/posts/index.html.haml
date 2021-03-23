@@ -1,16 +1,5 @@
 %h1 All posts
 = link_to 'Create a post', new_post_path, class: 'btn btn-success'
 %hr/
--@posts.each do |post|
-    =post.user.username
-    %br
-    =post.description
-    %br
-    - if post.image.persisted?
-        = image_tag post.image.variant(resize_to_limit: [150, nil])
-        %br
-    =post.created_at
-    %br
-    =link_to 'Show', post_path(post)
-    %br
-= link_to 'Back', root_path
+.row
+  = render @posts
