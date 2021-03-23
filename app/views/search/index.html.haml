@@ -1,0 +1,9 @@
+.row
+  %section.section.w-100
+    .section-body
+      %h4.section-title Search
+    .row
+      - if @posts.any?
+        = render @posts
+      - else
+        %p No posts found with the search term "#{params[:q]}"

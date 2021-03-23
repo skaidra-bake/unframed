@@ -27,5 +27,7 @@ Rails.application.routes.draw do
     resource :unfollow, module: :profiles, only: [:update]
   end
 
+  resources :search, only: [:index]
+
   root 'home#index'
 end
