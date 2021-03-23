@@ -1,7 +1,8 @@
 .col-12.col-md-12.mt-5
     .card.profile-widget
         .profile-widget-header
-            %img.rounded-circle.profile-widget-picture.ml-5{:alt => "image", :src => "https://randomuser.me/api/portraits/women/11.jpg"}/
+            - if user_avatar(@user).present?
+                .rounded-circle.profile-widget-picture.mt-2= image_tag user_avatar(@user), class: 'rounded-circle'
             .profile-widget-items
                 %h2.profile-widget-name= current_user.username
                 .profile-widget-buttons.mt-2.ml-3
@@ -14,14 +15,14 @@
                     .profile-widget-item-value= @user.posts.count
                 .profile-widget-item
                     .profile-widget-item-label Followers
-                    .profile-widget-item-value= current_user.followers.count
+                    .profile-widget-item-value= @user.followers.count
                 .profile-widget-item
                     .profile-widget-item-label Following
-                    .profile-widget-item-value= current_user.following_users.count
+                    .profile-widget-item-value= @user.following_users.count
         .profile-widget-description
             .profile-widget-name
-            = current_user.full_name
+            = @user.full_name
             .profile-widget-buttons.mt-2.ml-3
             %hr
             .text-muted.d-inline.font-weight-normal
-                = current_user.bio
+                = @user.bio
