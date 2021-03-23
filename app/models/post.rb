@@ -8,4 +8,7 @@ class Post < ApplicationRecord
   acts_as_favoritable
   acts_as_taggable_on :tags
   searchkick
+
+  scope :with_an_image, -> { includes(:image_attachment).where.not(active_storage_attachments: { record_id: nil }) }
+  scope :order_by_newest, -> { order(created_at: :desc) }
 end
