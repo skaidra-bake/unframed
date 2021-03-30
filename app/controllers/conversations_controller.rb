@@ -10,17 +10,8 @@ class ConversationsController < ApplicationController
     render action: :index
   end
 
-  def sent
-    @conversations = current_user.mailbox.sentbox
-    render action: :index
-  end
-
-  def trash
-    @conversations = current_user.mailbox.trash
-    render action: :index
-  end
-
   def show
+    @conversations = current_user.mailbox.conversations
     @conversation = current_user.mailbox.conversations.find(params[:id])
     @conversation.mark_as_read(current_user)
     @message = Mailboxer::Message.new

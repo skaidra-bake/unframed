@@ -1,17 +1,15 @@
-%h1 Conversations
-= link_to 'New Message', new_conversation_path, class: 'btn btn-primary'
-%hr/
-Inbox (#{current_user.mailbox.inbox.unread(current_user).count}) | 
-All Conversations (#{current_user.mailbox.conversations.count}) | 
-Sent (#{current_user.mailbox.sentbox.count}) | 
-Trash (#{current_user.mailbox.trash.count})
-%hr/
-Total (#{@conversations.count})
-- @conversations.each do |c|
-    %div
-        - if c.is_unread?(current_user)
-            %strong= link_to c.subject, conversation_path(c)
-        - else
-            = link_to c.subject, conversation_path(c)
-%br/
-= link_to 'New Conversation', new_conversation_path
+.row
+    .col-12.col-md-8.col-lg-8
+        %p !!!!!!!!!!!!!!!!!!!!
+    .col-12.col-md-4.col-lg-4
+        .row
+            = link_to 'New Message', new_conversation_path, class: 'btn btn-sm btn-primary'
+        - @conversations.each do |c|
+            - if c.is_unread?(current_user)
+                .row
+                    %strong= link_to penpal(c), conversation_path(c)
+                    %hr/
+            - else
+                .row
+                    = link_to penpal(c), conversation_path(c)
+                    %hr/

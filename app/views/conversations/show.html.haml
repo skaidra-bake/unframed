@@ -1,17 +1,30 @@
-%h1= @conversation.subject
-%h4 Participants:
-= @conversation.participants.map(&:username).join(", ")
-%hr/
-- @conversation.receipts_for(current_user).each do |r|
-    %div
-        %div #{r.message.sender.username} commented:
-        = simple_format r.message.body
-        - if r.message.attachment?
-            %p Attachment:
-            = link_to r.message.attachment.file.filename, r.message.attachment.url, target: :blank        
-= form_for @message, url: conversation_messages_path(@conversation) do |f|
-    %div= f.text_area :body
-    %div= f.file_field :attachment
-    = f.submit
-%br/
-= link_to 'Back to Inbox', inbox_conversations_path
+.row
+    .col-12.col-md-8.col-lg-8
+        %h4 Participants:
+        = @conversation.participants.map(&:username).join(", ")
+        %hr/
+        - @conversation.receipts_for(current_user).each do |r|
+            %div
+                %div #{r.message.sender.username} commented:
+                = simple_format r.message.body
+                - if r.message.attachment?
+                    %p Attachment:
+                    = link_to r.message.attachment.file.filename, r.message.attachment.url, target: :blank
+        = form_for @message, url: conversation_messages_path(@conversation) do |f|
+            %div= f.text_area :body
+            %div= f.file_field :attachment
+            = f.submit
+        %br/
+        = link_to 'Back to Inbox', inbox_conversations_path
+    .col-12.col-md-4.col-lg-4
+        .row
+            = link_to 'New Message', new_conversation_path, class: 'btn btn-sm btn-primary'
+        - @conversations.each do |c|
+            - if c.is_unread?(current_user)
+                .row
+                    %strong= link_to penpal(c), conversation_path(c)
+                    %hr/
+            - else
+                .row
+                    = link_to penpal(c), conversation_path(c)
+                    %hr/
