@@ -8,6 +8,8 @@ class User < ApplicationRecord
 
   has_many :posts, dependent: :destroy
   has_one_attached :avatar
+  has_many :collection_users, dependent: :destroy
+  has_many :collections, through: :collection_users
 
   acts_as_messageable
   acts_as_favoritor
