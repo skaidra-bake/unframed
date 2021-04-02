@@ -11,5 +11,7 @@ RSpec.describe Post, type: :model do
 
   describe 'associations' do
     it { is_expected.to belong_to(:user) }
+    it { is_expected.to have_many(:collection_posts) }
+    it { is_expected.to have_many(:collections).through(:collection_posts) }
   end
 end
