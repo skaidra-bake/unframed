@@ -1,15 +1,30 @@
-.row
-    .col-12.col-md-8.col-lg-8
-        %p !!!!!!!!!!!!!!!!!!!!
-    .col-12.col-md-4.col-lg-4
-        .row
-            = link_to 'New Message', new_conversation_path, class: 'btn btn-sm btn-primary'
-        - @conversations.each do |c|
-            - if c.is_unread?(current_user)
-                .row
-                    %strong= link_to penpal(c), conversation_path(c)
-                    %hr/
-            - else
-                .row
-                    = link_to penpal(c), conversation_path(c)
-                    %hr/
+-# .row
+-#     .col-12.col-md-8.col-lg-8
+-#         %p !!!!!!!!!!!!!!!!!!!!
+-#     .col-12.col-md-4.col-lg-4
+-#         .row
+-#             = link_to 'New Message', new_conversation_path, class: 'btn btn-sm btn-primary'
+-#         - @conversations.each do |c|
+-#             - if c.is_unread?(current_user)
+-#                 .row
+-#                     %strong= link_to penpal(c), conversation_path(c)
+-#                     %hr/
+-#             - else
+-#                 .row
+-#                     = link_to penpal(c), conversation_path(c)
+-#                     %hr/
+
+.messaging
+    .inbox_msg.row
+        .msg.col-12.col-md-8.col-lg-8
+            %p !!!!!!!!!!!
+        .inbox_people.col-12.col-md-4.col-lg-4
+            - @conversations.each do |c|
+                - if c.is_unread?(current_user)
+                    .row
+                        %strong= link_to penpal(c), conversation_path(c)
+                        %hr/
+                - else
+                    .row
+                        = link_to penpal(c), conversation_path(c)
+                        %hr/
