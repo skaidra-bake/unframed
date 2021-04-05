@@ -1,0 +1,19 @@
+= turbo_stream_from 'likes'
+
+%turbo-stream{action: 'update', target: 'like_count'}
+  %template
+    = "#{post.favoritors.count} like this"
+
+%turbo-stream{action: 'update', target: 'like_heart'}
+  %template
+    - if current_user.favorited?(post)
+      = link_to post_unlike_path(post), remote: true, method: :patch, class: 'unlike' do
+        %i.fas.fa-heart
+    - else
+      = link_to post_like_path(post), remote: true, method: :patch, class: 'like' do
+        %i.far.fa-heart
+
+
+#like_count
+
+%span#like_heart
