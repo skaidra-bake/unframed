@@ -4,16 +4,18 @@
 // that code so it'll be compiled.
 
 import Rails from "@rails/ujs"
-import Turbolinks from "turbolinks"
+import { Turbo } from "@hotwired/turbo-rails"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 import "../stylesheets/application";
 import "@fortawesome/fontawesome-free/css/all"
+import "controllers"
+
 require("bootstrap")
 
 Rails.start()
-Turbolinks.start()
 ActiveStorage.start()
+window.Turbo = Turbo
 
 document.addEventListener("turbolinks:load", function() {
     $(function() {
@@ -21,4 +23,3 @@ document.addEventListener("turbolinks:load", function() {
         $('[data-toggle="popover"]').popover()
     })
 })
-import "controllers"
