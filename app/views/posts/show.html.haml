@@ -9,10 +9,16 @@
     %dt Description:
     %dd= @post.description
 \#{@post.favoritors.count} like this
+%br
 - if current_user.favorited?(@post)
-    =link_to 'Unlike', post_unlike_path(@post), method: :patch, class: 'unlike'
+    =link_to post_unlike_path(@post), method: :patch, class: 'unlike' do
+        %i.fas.fa-heart
 - else
-    =link_to 'Like', post_like_path(@post), method: :patch, class: 'like'
+    =link_to post_like_path(@post), method: :patch, class: 'like' do
+        %i.far.fa-heart
+= render 'add_to_collection'
+
+
 %h3 Comments:
 = render partial: "comments/form", locals: { commentable: @post }
 = render @post.comments.where(parent_id: nil)
