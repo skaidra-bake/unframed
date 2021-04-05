@@ -17,7 +17,7 @@ Rails.start()
 ActiveStorage.start()
 window.Turbo = Turbo
 
-document.addEventListener("turbolinks:load", function() {
+document.addEventListener("turbo:load", function() {
     $(function() {
         $('[data-toggle="tooltip"]').tooltip()
         $('[data-toggle="popover"]').popover()
