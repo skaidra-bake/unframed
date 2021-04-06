@@ -11,6 +11,7 @@ import "../stylesheets/application";
 import "@fortawesome/fontawesome-free/css/all"
 import "controllers"
 
+require("jquery")
 require("bootstrap")
 
 Rails.start()

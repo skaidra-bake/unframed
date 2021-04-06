@@ -13,4 +13,13 @@ environment.plugins.prepend(
     })
 )
 
+environment.loaders.append('jquery', {
+    test: require.resolve('jquery'),
+    loader: 'expose-loader',
+    options: {
+        exposes: ['$', 'jQuery']
+    }
+})
+
+
 module.exports = environment
