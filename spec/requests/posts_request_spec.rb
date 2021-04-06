@@ -31,8 +31,8 @@ RSpec.describe 'Posts', type: :request do
       expect(response).to redirect_to post_path(Post.last)
     end
 
-    it 'fails to creates new post' do
-      allow(Post.new).to receive(:save).and_return(false)
+    it 'fails to create new post' do
+      allow_any_instance_of(Post).to receive(:save).and_return(false)
 
       post '/posts', params: { post: { description: 'This is a description' } }
 
