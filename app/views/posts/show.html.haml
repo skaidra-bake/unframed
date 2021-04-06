@@ -11,6 +11,8 @@
 
 = render 'likes', post: @post, current_user: current_user
 
+= render 'add_to_collection'
+
 %h3 Comments:
 = render partial: "comments/form", locals: { commentable: @post }
 = render @post.comments.where(parent_id: nil)

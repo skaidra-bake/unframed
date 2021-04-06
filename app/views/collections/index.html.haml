@@ -1,0 +1,6 @@
+%h4 Collections
+
+= link_to 'Create a collection', new_collection_path, class: 'btn btn-success'
+.row
+  - if @collections.any?
+    = render @collections
