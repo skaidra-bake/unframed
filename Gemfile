@@ -34,11 +34,11 @@ gem 'acts_as_follower', github: 'tcocca/acts_as_follower', branch: 'master'
 gem 'acts-as-taggable-on', '~> 7.0'
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'friendly_id', '~> 5.4.0'
+gem 'hotwire-rails'
 gem 'mailboxer', github: 'mailboxer/mailboxer'
 gem 'mini_magick'
 gem 'rexml'
 gem 'searchkick'
-gem 'hotwire-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

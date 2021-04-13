@@ -16,7 +16,9 @@ class Favorite < ApplicationRecord
   private
 
   def broadcast_like_update
-    broadcast_action_to 'likes', action: :update, target: 'like_count', partial: 'posts/likes', locals: { post: self.favoritable, current_user: self.favoritor }
-    broadcast_action_to 'likes', action: :update, target: 'like_heart', partial: 'posts/likes', locals: { post: self.favoritable, current_user: self.favoritor }
+    broadcast_action_to 'likes', action: :update, target: 'like_count', partial: 'posts/likes',
+                                 locals: { post: favoritable, current_user: favoritor }
+    broadcast_action_to 'likes', action: :update, target: 'like_heart', partial: 'posts/likes',
+                                 locals: { post: favoritable, current_user: favoritor }
   end
 end
