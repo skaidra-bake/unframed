@@ -25,10 +25,11 @@ RSpec.describe 'Collections', type: :request do
   end
 
   describe 'POST /create' do
-    it 'creates new collection' do
+    it 'creates new collection belonging to a user that created it' do
       post '/collections', params: { collection: { name: 'This is a name', description: 'This is a new collection' } }
 
       expect(response).to redirect_to collections_path
+      expect(Collection.last.users).to include(user)
     end
 
     it 'fails to creates new collection' do
