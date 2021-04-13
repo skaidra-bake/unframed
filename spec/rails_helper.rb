@@ -74,7 +74,7 @@ RSpec.configure do |config|
   # selenium chromedriver
   config.before(:each, type: :system) do
     # whenever you want to see the browser, change it to:
-    driven_by :selenium, using: :chrome
+    driven_by :selenium_chrome_headless, using: :chrome
     # default settings:
     # driven_by :selenium_chrome_headless, using: :chrome
   end
