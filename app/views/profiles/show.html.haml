@@ -4,7 +4,7 @@
             - if user_avatar(@user).present?
                 .rounded-circle.profile-widget-picture.mt-2= image_tag user_avatar(@user), class: 'rounded-circle'
             .profile-widget-items
-                %h2.profile-widget-name= current_user.username
+                %h2.profile-widget-name= @user.username
                 .profile-widget-buttons.mt-2.ml-3
                     = show_link_if current_user_profile?(@user), 'Edit profile', edit_user_registration_path(@user), class: 'btn btn-sm btn-primary'
                     = show_link_if not_following_user?(@user), 'Follow', profile_follow_path(@user), method: :patch, class: 'follow btn btn-sm btn-primary'
