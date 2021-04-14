@@ -1,13 +1,10 @@
 # frozen_string_literal: true
 
 class ConversationsController < ApplicationController
+  before_action :authenticate_user!
+
   def index
     @conversations = current_user.mailbox.conversations
-  end
-
-  def inbox
-    @conversations = current_user.mailbox.inbox
-    render action: :index
   end
 
   def show
