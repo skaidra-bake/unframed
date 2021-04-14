@@ -1,46 +1,31 @@
--# .row
--#     .col-12.col-md-8.col-lg-8
--#         %h4 Participants:
--#         = @conversation.participants.map(&:username).join(", ")
--#         %hr/
--#         - @conversation.receipts_for(current_user).each do |r|
--#             %div
--#                 %div #{r.message.sender.username} commented:
--#                 = simple_format r.message.body
--#                 - if r.message.attachment?
--#                     %p Attachment:
--#                     = link_to r.message.attachment.file.filename, r.message.attachment.url, target: :blank
--#         = form_for @message, url: conversation_messages_path(@conversation) do |f|
--#             %div= f.text_area :body
--#             %div= f.file_field :attachment
--#             = f.submit
--#         %br/
--#         = link_to 'Back to Inbox', inbox_conversations_path
--#     .col-12.col-md-4.col-lg-4
--#         .row
--#             = link_to 'New Message', new_conversation_path, class: 'btn btn-sm btn-primary'
--#         - @conversations.each do |c|
--#             - if c.is_unread?(current_user)
--#                 .row
--#                     %strong= link_to penpal(c), conversation_path(c)
--#                     %hr/
--#             - else
--#                 .row
--#                     = link_to penpal(c), conversation_path(c)
--#                     %hr/
 .messaging
     .inbox_msg.row
         .msg.col-12.col-md-8.col-lg-8
-            #chat-box.card.chat-box
-                .card-header= penpal(@conversation)
-                .card-body.chat-content{:style => "height:90%;"}
+            #chat-box.card.chat-box{:style => "height:90%;"}
+                .card-header
+                    Chat with #{penpal_usernames(@conversation)}
+                .card-body.chat-content{:style => "overflow: hidden; outline: none; height:90%;", :tabindex => "2"}
                     - @conversation.receipts_for(current_user).each do |r|
-                        %div
-                            %div #{r.message.sender.username} commented:
-                            = simple_format r.message.body
-                            - if r.message.attachment?
-                                %p Attachment:
-                                = link_to r.message.attachment.file.filename, r.message.attachment.url, target: :blank
+                        -if r.message.sender == current_user
+                            .chat-item.chat-right
+                                = image_tag(user_avatar(r.message.sender), alt: 'image', width: '50', :class => "mr-3 rounded-circle")
+                                .chat-details
+                                    .chat-text
+                                        = simple_format r.message.body
+                                        - if r.message.attachment?
+                                            %p Attachment:
+                                            = link_to r.message.attachment.file.filename, r.message.attachment.url, target: :blank
+                                    .chat-time= r[:created_at].strftime("%I:%M %P")
+                        -else
+                            .chat-item.chat-left
+                                = image_tag(user_avatar(r.message.sender), alt: 'image', width: '50', :class => "mr-3 rounded-circle")
+                                .chat-details
+                                    .chat-text
+                                        = simple_format r.message.body
+                                        - if r.message.attachment?
+                                            %p Attachment:
+                                            = link_to r.message.attachment.file.filename, r.message.attachment.url, target: :blank
+                                    .chat-time= r[:created_at].strftime("%I:%M %P")
             .type_msg{:style => "position:relative;"}
                 = form_for @message, url: conversation_messages_path(@conversation) do |f|
                     %div= f.text_area :body
@@ -48,12 +33,18 @@
                     = f.submit
                 %br/
         .inbox_people.col-12.col-md-4.col-lg-4
-            - @conversations.each do |c|
-                - if c.is_unread?(current_user)
-                    .row
-                        %strong= link_to penpal(c), conversation_path(c)
-                        %hr/
-                - else
-                    .row
-                        = link_to penpal(c), conversation_path(c)
-                        %hr/
+            .row.card
+                .card-header.justify-content-center
+                    %h4= current_user.username
+                .card-body
+                    %ul.list-unstyled.list-unstyled-border
+                        - @conversations.each do |c|
+                            %li.media
+                                - penpal(c).each do |p|
+                                    = image_tag(user_avatar(p), alt: 'image', width: '50', :class => "mr-3 rounded-circle")
+                                .media-body
+                                    .mt-0.mb-1.font-weight-bold
+                                        - if c.is_unread?(current_user)
+                                            %strong= link_to penpal_usernames(c), conversation_path(c)
+                                        - else
+                                            = link_to penpal_usernames(c), conversation_path(c)

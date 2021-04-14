@@ -1,9 +1,11 @@
 .messaging
     .row.inbox_msg
         .msg.col-12.col-md-8.col-lg-8
-            .d-flex.justify-content-center.align-items-center{:style => "height:100%;"}
-                %p Select a conversation, or start a new one
-                = link_to 'New Message', new_conversation_path, class: 'btn btn-sm btn-primary ml-3 mb-3'
+            #chat-box.card.chat-box{:style => "height:90%;"}
+                .card-body.chat-content
+                    .d-flex.justify-content-center.align-items-center{:style => "height:100%;"}
+                        %p Select a conversation, or start a new one
+                        = link_to 'New Message', new_conversation_path, class: 'btn btn-sm btn-primary ml-3 mb-3'
         .inbox_people.col-12.col-md-4.col-lg-4
             .row.card
                 .card-header.justify-content-center
