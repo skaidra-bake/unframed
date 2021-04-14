@@ -6,6 +6,8 @@ module ApplicationHelper
     if user.avatar.attached?
       user.avatar.variant(resize_to_fill: [size, size,
                                            { gravity: 'Center' }])
+    else
+      'avatar.png'
     end
   end
 end
