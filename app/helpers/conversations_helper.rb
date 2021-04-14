@@ -2,6 +2,10 @@
 
 module ConversationsHelper
   def penpal(conversation)
-    conversation.participants.map(&:username).excluding(current_user.username).join(', ')
+    conversation.participants.without(current_user)
+  end
+
+  def penpal_usernames(conversation)
+    conversation.participants.without(current_user).map(&:username).join(', ')
   end
 end
