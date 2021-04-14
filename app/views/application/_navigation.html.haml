@@ -14,16 +14,16 @@
       - else
         .div.custom
           .nav-item
-            = link_to new_post_path, class: 'nav-link' do
+            = link_to new_post_path, class: 'nav-link', data: { 'toggle': 'tooltip', 'original-title': 'Create post' } do
               %i.fas.fa-plus
           .nav-item
-            = link_to posts_path, class: 'nav-link' do
+            = link_to posts_path, class: 'nav-link', data: { 'toggle': 'tooltip', 'original-title': 'Timeline' } do
               %i.fas.fa-home
           .nav-item
-            = link_to inbox_conversations_path, class: 'nav-link' do
+            = link_to conversations_path, class: 'nav-link', data: { 'toggle': 'tooltip', 'original-title': 'Inbox' } do
               %i.fas.fa-inbox
           .nav-item
-            = link_to profile_path(current_user), class: 'nav-link' do
+            = link_to profile_path(current_user), class: 'nav-link', data: { 'toggle': 'tooltip', 'original-title': 'Your profile' } do
               %i.far.fa-user
         .div
           .nav-item
