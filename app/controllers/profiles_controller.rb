@@ -5,5 +5,7 @@ class ProfilesController < ApplicationController
 
   def show
     @user = User.friendly.find(params[:id])
+    @collections = @user.collections
+    @posts = @user.posts.with_an_image.all.order_by_newest
   end
 end

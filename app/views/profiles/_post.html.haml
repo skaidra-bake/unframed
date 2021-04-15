@@ -1,0 +1,9 @@
+.col-12.col-md-6.col-lg-4
+  %article.article.article-style-c
+    .article-user
+      = post.user.username
+      .small
+        %span= time_ago_in_words(post.created_at)
+    .article-header
+      = link_to post_path(post) do
+        .article-image{style: "background-image: url('#{ rails_representation_url(post.image.variant(resize_to_limit: [500, nil]).processed)}')"}

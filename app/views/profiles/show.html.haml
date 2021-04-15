@@ -26,3 +26,22 @@
             %hr
             .text-muted.d-inline.font-weight-normal
                 = @user.bio
+    %hr
+    %ul#pills-tab.nav.nav-pills.mb-3{:role => "tablist"}
+        %li.nav-item
+            %a#pills-home-tab.nav-link.active{"aria-controls" => "pills-home", "aria-selected" => "true", "data-toggle" => "pill", :href => "#pills-home", :role => "tab"} Posts
+        %li.nav-item
+            %a#pills-profile-tab.nav-link{"aria-controls" => "pills-profile", "aria-selected" => "false", "data-toggle" => "pill", :href => "#pills-profile", :role => "tab"} Collections
+    #pills-tabContent.tab-content
+        #pills-home.tab-pane.fade.show.active{"aria-labelledby" => "pills-home-tab", :role => "tabpanel"}
+            .row
+                -if @posts.empty?
+                    %p This user does not have any posts yet
+                -else
+                    = render @posts
+        #pills-profile.tab-pane.fade{"aria-labelledby" => "pills-profile-tab", :role => "tabpanel"}
+            .row
+                -if @collections.empty?
+                    %p This user does not have any collections yet
+                -else
+                    = render @collections
