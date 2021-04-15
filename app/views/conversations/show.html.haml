@@ -12,9 +12,6 @@
                                 .chat-details
                                     .chat-text
                                         = simple_format r.message.body
-                                        - if r.message.attachment?
-                                            %p Attachment:
-                                            = link_to r.message.attachment.file.filename, r.message.attachment.url, target: :blank
                                     .chat-time= r[:created_at].strftime("%I:%M %P")
                         -else
                             .chat-item.chat-left
@@ -22,16 +19,14 @@
                                 .chat-details
                                     .chat-text
                                         = simple_format r.message.body
-                                        - if r.message.attachment?
-                                            %p Attachment:
-                                            = link_to r.message.attachment.file.filename, r.message.attachment.url, target: :blank
                                     .chat-time= r[:created_at].strftime("%I:%M %P")
-            .type_msg{:style => "position:relative;"}
-                = form_for @message, url: conversation_messages_path(@conversation) do |f|
-                    %div= f.text_area :body
-                    %div= f.file_field :attachment
-                    = f.submit
-                %br/
+                .card-footer.chat-form
+                    = form_for @message, url: conversation_messages_path(@conversation), html: { class: 'form-row', id: 'chat-form2' } do |f|
+                        .col-11
+                            = f.text_area :body, placeholder: 'Type a message', type: 'text', class: 'form-control'
+                        .col-1
+                            = button_tag class: 'btn btn-primary' do
+                                %i.far.fa-paper-plane
         .inbox_people.col-12.col-md-4.col-lg-4
             .row.card
                 .card-header.justify-content-center
