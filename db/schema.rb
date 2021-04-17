@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 2021_04_02_164306) do
 
-  create_table "active_admin_comments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "active_admin_comments", charset: "utf8", force: :cascade do |t|
     t.string "namespace"
     t.text "body"
     t.string "resource_type"
@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 2021_04_02_164306) do
     t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource"
   end
 
-  create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "active_storage_attachments", charset: "utf8", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
     t.bigint "record_id", null: false
@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 2021_04_02_164306) do
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
 
-  create_table "active_storage_blobs", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "active_storage_blobs", charset: "utf8", force: :cascade do |t|
     t.string "key", null: false
     t.string "filename", null: false
     t.string "content_type"
@@ -48,13 +48,13 @@ ActiveRecord::Schema.define(version: 2021_04_02_164306) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table "active_storage_variant_records", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "active_storage_variant_records", charset: "utf8", force: :cascade do |t|
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table "admin_users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "admin_users", charset: "utf8", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -66,7 +66,7 @@ ActiveRecord::Schema.define(version: 2021_04_02_164306) do
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
-  create_table "collection_posts", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "collection_posts", charset: "utf8", force: :cascade do |t|
     t.bigint "collection_id", null: false
     t.bigint "post_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -75,7 +75,7 @@ ActiveRecord::Schema.define(version: 2021_04_02_164306) do
     t.index ["post_id"], name: "index_collection_posts_on_post_id"
   end
 
-  create_table "collection_users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "collection_users", charset: "utf8", force: :cascade do |t|
     t.bigint "collection_id", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -84,14 +84,14 @@ ActiveRecord::Schema.define(version: 2021_04_02_164306) do
     t.index ["user_id"], name: "index_collection_users_on_user_id"
   end
 
-  create_table "collections", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "collections", charset: "utf8", force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "comments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "comments", charset: "utf8", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "commentable_type", null: false
     t.bigint "commentable_id", null: false
@@ -103,7 +103,7 @@ ActiveRecord::Schema.define(version: 2021_04_02_164306) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
-  create_table "favorites", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "favorites", charset: "utf8", force: :cascade do |t|
     t.string "favoritable_type", null: false
     t.bigint "favoritable_id", null: false
     t.string "favoritor_type", null: false
@@ -120,7 +120,7 @@ ActiveRecord::Schema.define(version: 2021_04_02_164306) do
     t.index ["scope"], name: "index_favorites_on_scope"
   end
 
-  create_table "follows", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "follows", charset: "utf8", force: :cascade do |t|
     t.string "followable_type", null: false
     t.bigint "followable_id", null: false
     t.string "follower_type", null: false
@@ -134,7 +134,7 @@ ActiveRecord::Schema.define(version: 2021_04_02_164306) do
     t.index ["follower_type", "follower_id"], name: "index_follows_on_follower"
   end
 
-  create_table "friendly_id_slugs", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "friendly_id_slugs", charset: "utf8", force: :cascade do |t|
     t.string "slug", null: false
     t.integer "sluggable_id", null: false
     t.string "sluggable_type", limit: 50
@@ -145,7 +145,7 @@ ActiveRecord::Schema.define(version: 2021_04_02_164306) do
     t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
   end
 
-  create_table "mailboxer_conversation_opt_outs", id: :integer, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "mailboxer_conversation_opt_outs", id: :integer, charset: "utf8", force: :cascade do |t|
     t.string "unsubscriber_type"
     t.integer "unsubscriber_id"
     t.integer "conversation_id"
@@ -153,13 +153,13 @@ ActiveRecord::Schema.define(version: 2021_04_02_164306) do
     t.index ["unsubscriber_id", "unsubscriber_type"], name: "index_mailboxer_conversation_opt_outs_on_unsubscriber_id_type"
   end
 
-  create_table "mailboxer_conversations", id: :integer, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "mailboxer_conversations", id: :integer, charset: "utf8", force: :cascade do |t|
     t.string "subject", default: ""
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "mailboxer_notifications", id: :integer, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "mailboxer_notifications", id: :integer, charset: "utf8", force: :cascade do |t|
     t.string "type"
     t.text "body"
     t.string "subject", default: ""
@@ -182,7 +182,7 @@ ActiveRecord::Schema.define(version: 2021_04_02_164306) do
     t.index ["type"], name: "index_mailboxer_notifications_on_type"
   end
 
-  create_table "mailboxer_receipts", id: :integer, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "mailboxer_receipts", id: :integer, charset: "utf8", force: :cascade do |t|
     t.string "receiver_type"
     t.integer "receiver_id"
     t.integer "notification_id", null: false
@@ -199,7 +199,7 @@ ActiveRecord::Schema.define(version: 2021_04_02_164306) do
     t.index ["receiver_id", "receiver_type"], name: "index_mailboxer_receipts_on_receiver_id_and_receiver_type"
   end
 
-  create_table "posts", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "posts", charset: "utf8", force: :cascade do |t|
     t.text "description"
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -207,7 +207,7 @@ ActiveRecord::Schema.define(version: 2021_04_02_164306) do
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
-  create_table "taggings", id: :integer, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "taggings", id: :integer, charset: "utf8", force: :cascade do |t|
     t.integer "tag_id"
     t.string "taggable_type"
     t.integer "taggable_id"
@@ -226,7 +226,7 @@ ActiveRecord::Schema.define(version: 2021_04_02_164306) do
     t.index ["tagger_id"], name: "index_taggings_on_tagger_id"
   end
 
-  create_table "tags", id: :integer, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "tags", id: :integer, charset: "utf8", force: :cascade do |t|
     t.string "name", collation: "utf8_bin"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -234,7 +234,7 @@ ActiveRecord::Schema.define(version: 2021_04_02_164306) do
     t.index ["name"], name: "index_tags_on_name", unique: true
   end
 
-  create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "users", charset: "utf8", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
