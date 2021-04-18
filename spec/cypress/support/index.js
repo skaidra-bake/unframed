@@ -17,5 +17,9 @@
 import './commands'
 import './on-rails'
 
+beforeEach(() => {
+    cy.app('clean');
+});
+
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
