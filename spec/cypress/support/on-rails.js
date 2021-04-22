@@ -22,7 +22,7 @@ Cypress.Commands.add('app', function (name, command_options) {
   });
 });
 
-Cypress.Commands.add('appScenario', function (name, options = {}) {
+Cypress.Commands.add('scenario', function (name, options = {}) {
   return cy.app('scenarios/' + name, options)
 });
 
@@ -39,10 +39,9 @@ Cypress.Commands.add('appFixtures', function (options) {
 });
 // CypressOnRails: end
 
-// The next is optional
-// beforeEach(() => {
-//  cy.app('clean') // have a look at cypress/app_commands/clean.rb
-// });
+beforeEach(() => {
+  cy.app('clean');
+});
 
 // comment this out if you do not want to attempt to log additional info on test fail
 Cypress.on('fail', (err, runnable) => {

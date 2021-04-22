@@ -1,6 +1,10 @@
 {
     "name": "unframed",
     "private": true,
+    "scripts": {
+        "cy:open": "cypress open --project ./spec",
+        "cy:server": "bundle exec rails server -e test -p 5002 -P 69"
+    },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.7.2",
         "@hotwired/turbo-rails": "^7.0.0-beta.5",
