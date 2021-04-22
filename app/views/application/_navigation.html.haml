@@ -10,7 +10,7 @@
       - unless user_signed_in?
         .div
           .nav-item
-            = link_to 'Sign in', new_user_session_path, class: 'nav-link'
+            = link_to 'Sign in', new_user_session_path, class: 'nav-link', data: { id: 'link-to-login' }
       - else
         .div.custom
           .nav-item

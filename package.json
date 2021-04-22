@@ -1,6 +1,10 @@
 {
     "name": "unframed",
     "private": true,
+    "scripts": {
+        "cy:open": "cypress open --project ./spec",
+        "cy:server": "bundle exec rails server -e test -p 5002 -P tmp/pids/cypress.pid"
+    },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.7.2",
         "@hotwired/turbo-rails": "^7.0.0-beta.5",
@@ -23,6 +27,7 @@
     },
     "version": "0.1.0",
     "devDependencies": {
+        "cypress": "^7.1.0",
         "webpack-dev-server": "^3.11.1"
     }
 }
