@@ -3,7 +3,7 @@
     "private": true,
     "scripts": {
         "cy:open": "cypress open --project ./spec",
-        "cy:server": "bundle exec rails server -e test -p 5002 -P 69"
+        "cy:server": "bundle exec rails server -e test -p 5002 -P tmp/pids/cypress.pid"
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.7.2",
