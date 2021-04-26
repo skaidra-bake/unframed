@@ -1,3 +1,7 @@
 # frozen_string_literal: true
 
-ActsAsTaggableOn.force_binary_collation = true
+begin
+    ActsAsTaggableOn.force_binary_collation = true
+rescue ActiveRecord::NoDatabaseError => err
+    Rails.logger.error err
+end
