@@ -19,12 +19,16 @@ commands:
   yarn_install:
     description: Install yarn
     steps:
-      - run: yarn install
+      - save_yarn_cache
+      - run: yarn install --frozen-lockfile --cache-folder ~/.cache/yarn
+      - restore_yarn_cache
   bundle_install:
     description: Install gems
     steps:
       - bundler_install
-      - run: bundle install
+      - restore_bundle_cache
+      - run: bundle install --path vendor/bundle
+      - save_bundle_cache
   prepare_database:
     description: Prepare database for tests
     steps:
@@ -48,6 +52,20 @@ commands:
       - restore_cache:
           keys:
             - *bundle_cache
+  save_yarn_cache:
+    description: Save yarn cache
+    steps:
+      - save_cache:
+          key: *yarn_cache
+          paths:
+            - node_modules
+            - ~/.cache
+  restore_yarn_cache:
+    description: Restore yarn cache
+    steps:
+      - restore_cache:
+          keys:
+            - *yarn_cache
 jobs:
   build:
     docker:
@@ -61,9 +79,7 @@ jobs:
     executor: ruby/default
     steps:
       - checkout
-      - restore_bundle_cache
       - bundle_install
-      - save_bundle_cache
       - prepare_database
       - yarn_install
       - run_rspec_tests
