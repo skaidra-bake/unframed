@@ -3,8 +3,8 @@ orbs:
   ruby: circleci/ruby@0.1.2 
 
 caches:
-  - &bundle_cache unframed-bundle-{{ checksum "Gemfile.lock" }}
-  - &yarn_cache unframed-yarn-v1-{{ checksum "yarn.lock" }}
+  - &bundle_cache unframed-bundle-{{ .Environment.BUNDLE_CACHE_VERSION }}-{{ checksum "Gemfile.lock" }}
+  - &yarn_cache unframed-yarn-{{ .Environment.YARN_CACHE_VERSION }}-{{ checksum "yarn.lock" }}
 
 commands:
   bundler_install:
