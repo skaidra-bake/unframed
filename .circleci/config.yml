@@ -2,6 +2,10 @@ version: 2.1
 orbs:
   ruby: circleci/ruby@0.1.2 
 
+caches:
+  - &bundle_cache unframed-bundle-{{ checksum "Gemfile.lock" }}
+  - &yarn_cache unframed-yarn-v1-{{ checksum "yarn.lock" }}
+
 commands:
   bundler_install:
     description: Install bundler
@@ -31,6 +35,19 @@ commands:
     description: Run Rspec unit tests
     steps:
       - run: bundle exec rspec  
+  save_bundle_cache:
+    description: Save bundle cache
+    steps:
+      - save_cache:
+          key: *bundle_cache
+          paths:
+            - vendor/bundle
+  restore_bundle_cache:
+    description: Restore bundler cache
+    steps:
+      - restore_cache:
+          keys:
+            - *bundle_cache
 jobs:
   build:
     docker:
@@ -44,7 +61,9 @@ jobs:
     executor: ruby/default
     steps:
       - checkout
+      - restore_bundle_cache
       - bundle_install
+      - save_bundle_cache
       - prepare_database
       - yarn_install
       - run_rspec_tests
