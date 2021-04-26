@@ -2,14 +2,25 @@ version: 2.1
 orbs:
   ruby: circleci/ruby@0.1.2 
 
+commands:
+  install_bundler:
+    description: Install bundler
+    steps:
+      - run: gem install bundler --version $BUNDLER_VERSION
+  install_yarn:
+    description: Install yarn
+    steps:
+      - run: yarn install
 jobs:
   build:
     docker:
-      - image: circleci/ruby:2.6.3-stretch-node
+      - image: circleci/ruby:3.0.0-node-browsers
+      - image: circleci/postgres:12
+      - image: circleci/redis:6
+    environment:
+      - BUNDLER_VERSION: 2.2.3
     executor: ruby/default
     steps:
       - checkout
-      - run:
-          name: Which bundler?
-          command: bundle -v
-      - ruby/bundle-install
+      - install_bundler
+      - install_yarn
