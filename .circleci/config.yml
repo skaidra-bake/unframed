@@ -3,14 +3,34 @@ orbs:
   ruby: circleci/ruby@0.1.2 
 
 commands:
-  install_bundler:
+  bundler_install:
     description: Install bundler
     steps:
       - run: gem install bundler --version $BUNDLER_VERSION
-  install_yarn:
+  database_config:
+    description: Configure database file
+    steps:
+      - run: rm config/database.yml
+      - run: cp config/database.ci.yml config/database.yml
+  yarn_install:
     description: Install yarn
     steps:
       - run: yarn install
+  bundle_install:
+    description: Install gems
+    steps:
+      - bundler_install
+      - run: bundle install
+  prepare_database:
+    description: Prepare database for tests
+    steps:
+      - database_config
+      - run: bundle exec rails db:create
+      - run: bundle exec rake db:schema:load
+  run_rspec_tests:
+    description: Run Rspec unit tests
+    steps:
+      - run: bundle exec rspec  
 jobs:
   build:
     docker:
@@ -24,5 +44,12 @@ jobs:
     executor: ruby/default
     steps:
       - checkout
-      - install_bundler
-      - install_yarn
+      - bundle_install
+      - prepare_database
+      - yarn_install
+      - run_rspec_tests
+
+
+
+      
+
