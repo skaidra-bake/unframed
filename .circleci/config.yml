@@ -1,0 +1,94 @@
+version: 2.1
+orbs:
+  ruby: circleci/ruby@0.1.2 
+
+caches:
+  - &bundle_cache unframed-bundle-{{ .Environment.BUNDLE_CACHE_VERSION }}-{{ checksum "Gemfile.lock" }}
+  - &yarn_cache unframed-yarn-{{ .Environment.YARN_CACHE_VERSION }}-{{ checksum "yarn.lock" }}
+
+commands:
+  bundler_install:
+    description: Install bundler
+    steps:
+      - run: gem install bundler --version $BUNDLER_VERSION
+  database_config:
+    description: Configure database file
+    steps:
+      - run: rm config/database.yml
+      - run: cp config/database.ci.yml config/database.yml
+  yarn_install:
+    description: Install yarn
+    steps:
+      - save_yarn_cache
+      - run: yarn install --frozen-lockfile --cache-folder ~/.cache/yarn
+      - restore_yarn_cache
+  bundle_install:
+    description: Install gems
+    steps:
+      - bundler_install
+      - restore_bundle_cache
+      - run: bundle install --path vendor/bundle
+      - save_bundle_cache
+  prepare_database:
+    description: Prepare database for tests
+    steps:
+      - database_config
+      - run: bundle exec rails db:create
+      - run: bundle exec rake db:schema:load
+  run_rspec_tests:
+    description: Run Rspec unit tests
+    steps:
+      - run: bundle exec rspec  
+  save_bundle_cache:
+    description: Save bundle cache
+    steps:
+      - save_cache:
+          key: *bundle_cache
+          paths:
+            - vendor/bundle
+  restore_bundle_cache:
+    description: Restore bundler cache
+    steps:
+      - restore_cache:
+          keys:
+            - *bundle_cache
+  save_yarn_cache:
+    description: Save yarn cache
+    steps:
+      - save_cache:
+          key: *yarn_cache
+          paths:
+            - node_modules
+            - ~/.cache
+  restore_yarn_cache:
+    description: Restore yarn cache
+    steps:
+      - restore_cache:
+          keys:
+            - *yarn_cache
+jobs:
+  build:
+    docker:
+      - image: circleci/ruby:3.0.0-node-browsers
+      - image: circleci/postgres:12
+        environment:
+          POSTGRES_PASSWORD: password
+      - image: circleci/redis:6
+      - image: docker.elastic.co/elasticsearch/elasticsearch:7.10.2
+        environment:
+          discovery.type: single-node
+          TINI_SUBREAPER: true
+    environment:
+      - BUNDLER_VERSION: 2.2.3
+    executor: ruby/default
+    steps:
+      - checkout
+      - bundle_install
+      - prepare_database
+      - yarn_install
+      - run_rspec_tests
+
+
+
+      
+
