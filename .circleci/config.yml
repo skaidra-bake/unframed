@@ -6,6 +6,22 @@ caches:
   - &bundle_cache unframed-bundle-{{ .Environment.BUNDLE_CACHE_VERSION }}-{{ checksum "Gemfile.lock" }}
   - &yarn_cache unframed-yarn-{{ .Environment.YARN_CACHE_VERSION }}-{{ checksum "yarn.lock" }}
 
+executors:
+  default:
+    description: Circleci Docker Setup
+    docker:
+      - image: circleci/ruby:3.0.0-node-browsers
+      - image: circleci/postgres:12
+        environment:
+          POSTGRES_PASSWORD: password
+      - image: circleci/redis:6
+      - image: docker.elastic.co/elasticsearch/elasticsearch:7.10.2
+        environment:
+          discovery.type: single-node
+          TINI_SUBREAPER: true
+    environment:
+      - BUNDLER_VERSION: 2.2.3
+
 commands:
   bundler_install:
     description: Install bundler
@@ -19,9 +35,9 @@ commands:
   yarn_install:
     description: Install yarn
     steps:
-      - save_yarn_cache
-      - run: yarn install --frozen-lockfile --cache-folder ~/.cache/yarn
       - restore_yarn_cache
+      - run: yarn install --frozen-lockfile --cache-folder ~/.cache/yarn
+      - save_yarn_cache
   bundle_install:
     description: Install gems
     steps:
@@ -38,7 +54,43 @@ commands:
   run_rspec_tests:
     description: Run Rspec unit tests
     steps:
-      - run: bundle exec rspec  
+      - run: bundle exec rspec
+  run_cypress_tests:
+    description: Run Cypress tests
+    steps:
+      - run: mkdir -p tmp/pids && rm -f tmp/pids/*
+      - run:
+          name: Run rails server in background
+          command: bundle exec rails server -e test -p 5002 -P tmp/pids/cypress.pid
+          background: true
+      - run:
+          name: Wait for server
+          command: |
+            until $(curl --retry 10 --output /dev/null --silent --head --fail http://127.0.0.1:5002/); do
+                printf '.'
+                sleep 5
+            done
+      - run:
+          name: Executes Cypress end-to-end tests
+          command: |
+            export TEST_FILES="$(circleci tests glob "spec/cypress/**/*.spec.js" | circleci tests split --split-by=timings)"
+            export TEST_FILES="$(ruby -rshellwords -e'print ENV["TEST_FILES"].shellsplit.join(",")')"
+            yarn run cypress run \
+              --project ./spec \
+              --reporter junit \
+              --reporter-options "mochaFile=../test-results/cypress-[hash].xml,toConsole=true" \
+              --spec $TEST_FILES
+      - run:
+          name: Shutdown the server after running Cypress
+          command: |
+            kill -term $(cat tmp/pids/cypress.pid)
+            ruby -e "(sleep 1; print '.') while File.exist? 'tmp/pids/cypress.pid'"
+      - store_test_results:
+          path: test-results
+      - store_artifacts:
+          path: spec/cypress/videos
+      - store_artifacts:
+          path: spec/cypress/screenshots
   save_bundle_cache:
     description: Save bundle cache
     steps:
@@ -66,29 +118,29 @@ commands:
       - restore_cache:
           keys:
             - *yarn_cache
+
 jobs:
-  build:
-    docker:
-      - image: circleci/ruby:3.0.0-node-browsers
-      - image: circleci/postgres:12
-        environment:
-          POSTGRES_PASSWORD: password
-      - image: circleci/redis:6
-      - image: docker.elastic.co/elasticsearch/elasticsearch:7.10.2
-        environment:
-          discovery.type: single-node
-          TINI_SUBREAPER: true
-    environment:
-      - BUNDLER_VERSION: 2.2.3
-    executor: ruby/default
+  rspec:
+    executor:
+      name: default
+    steps:
+      - checkout
+      - bundle_install
+      - prepare_database
+      - run_rspec_tests
+  cypress:
+    executor:
+      name: default
     steps:
       - checkout
       - bundle_install
       - prepare_database
       - yarn_install
-      - run_rspec_tests
+      - run_cypress_tests
 
-
-
-      
-
+workflows:
+  version: 2
+  build_and_run_specs:
+    jobs:
+      - rspec
+      - cypress
