@@ -1,17 +1,7 @@
 describe('Create post', () => {
     beforeEach(() => {
       cy.scenario('sign_in');
-      cy.visit('/');
-      cy.get('[data-id="link-to-login"]').click();
-  
-      cy.url().should('include', '/sign_in');
-  
-      cy.get('[name="user[email]"]').type('user@example.com');
-      cy.get('[name="user[password]"]').type('password');
-  
-      cy.get('input.btn')
-        .contains('Log in')
-        .click();
+      cy.userLogin();
     });
   
     it('user is able to create post', () => {
