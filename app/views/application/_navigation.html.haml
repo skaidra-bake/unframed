@@ -14,7 +14,7 @@
       - else
         .div.custom
           .nav-item
-            = link_to new_post_path, class: 'nav-link', data: { 'toggle': 'tooltip', 'original-title': 'Create post' } do
+            = link_to new_post_path, class: 'nav-link', data: { 'toggle': 'tooltip', 'original-title': 'Create post', 'id': 'link-to-new-post' } do
               %i.fas.fa-plus
           .nav-item
             = link_to posts_path, class: 'nav-link', data: { 'toggle': 'tooltip', 'original-title': 'Timeline' } do
