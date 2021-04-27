@@ -35,9 +35,9 @@ commands:
   yarn_install:
     description: Install yarn
     steps:
-      - save_yarn_cache
-      - run: yarn install --frozen-lockfile --cache-folder ~/.cache/yarn
       - restore_yarn_cache
+      - run: yarn install --frozen-lockfile --cache-folder ~/.cache/yarn
+      - save_yarn_cache
   bundle_install:
     description: Install gems
     steps:
@@ -136,6 +136,7 @@ jobs:
       - bundle_install
       - prepare_database
       - yarn_install
+      - run_cypress_tests
 
 workflows:
   version: 2
