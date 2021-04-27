@@ -54,7 +54,43 @@ commands:
   run_rspec_tests:
     description: Run Rspec unit tests
     steps:
-      - run: bundle exec rspec  
+      - run: bundle exec rspec
+  run_cypress_tests:
+    description: Run Cypress tests
+    steps:
+      - run: mkdir -p tmp/pids && rm -f tmp/pids/*
+      - run:
+          name: Run rails server in background
+          command: bundle exec rails server -e test -p 5002 -P tmp/pids/cypress.pid
+          background: true
+      - run:
+          name: Wait for server
+          command: |
+            until $(curl --retry 10 --output /dev/null --silent --head --fail http://127.0.0.1:5002/); do
+                printf '.'
+                sleep 5
+            done
+      - run:
+          name: Executes Cypress end-to-end tests
+          command: |
+            export TEST_FILES="$(circleci tests glob "spec/cypress/**/*.spec.js" | circleci tests split --split-by=timings)"
+            export TEST_FILES="$(ruby -rshellwords -e'print ENV["TEST_FILES"].shellsplit.join(",")')"
+            yarn run cypress run \
+              --project ./spec \
+              --reporter junit \
+              --reporter-options "mochaFile=../test-results/cypress-[hash].xml,toConsole=true" \
+              --spec $TEST_FILES
+      - run:
+          name: Shutdown the server after running Cypress
+          command: |
+            kill -term $(cat tmp/pids/cypress.pid)
+            ruby -e "(sleep 1; print '.') while File.exist? 'tmp/pids/cypress.pid'"
+      - store_test_results:
+          path: test-results
+      - store_artifacts:
+          path: spec/cypress/videos
+      - store_artifacts:
+          path: spec/cypress/screenshots
   save_bundle_cache:
     description: Save bundle cache
     steps:
