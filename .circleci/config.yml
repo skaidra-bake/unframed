@@ -6,6 +6,22 @@ caches:
   - &bundle_cache unframed-bundle-{{ .Environment.BUNDLE_CACHE_VERSION }}-{{ checksum "Gemfile.lock" }}
   - &yarn_cache unframed-yarn-{{ .Environment.YARN_CACHE_VERSION }}-{{ checksum "yarn.lock" }}
 
+executors:
+  default:
+    description: Circleci Docker Setup
+    docker:
+      - image: circleci/ruby:3.0.0-node-browsers
+      - image: circleci/postgres:12
+        environment:
+          POSTGRES_PASSWORD: password
+      - image: circleci/redis:6
+      - image: docker.elastic.co/elasticsearch/elasticsearch:7.10.2
+        environment:
+          discovery.type: single-node
+          TINI_SUBREAPER: true
+    environment:
+      - BUNDLER_VERSION: 2.2.3
+
 commands:
   bundler_install:
     description: Install bundler
@@ -66,29 +82,27 @@ commands:
       - restore_cache:
           keys:
             - *yarn_cache
+
 jobs:
-  build:
-    docker:
-      - image: circleci/ruby:3.0.0-node-browsers
-      - image: circleci/postgres:12
-        environment:
-          POSTGRES_PASSWORD: password
-      - image: circleci/redis:6
-      - image: docker.elastic.co/elasticsearch/elasticsearch:7.10.2
-        environment:
-          discovery.type: single-node
-          TINI_SUBREAPER: true
-    environment:
-      - BUNDLER_VERSION: 2.2.3
-    executor: ruby/default
+  bundle:
+    executor:
+      name: default
     steps:
       - checkout
+      - prepare_database
       - bundle_install
+      - run_rspec_tests
+  yarn:
+    executor:
+      name: default
+    steps:
+      - checkout
       - prepare_database
       - yarn_install
-      - run_rspec_tests
 
-
-
-      
-
+workflows:
+  version: 2
+  build_and_run_specs:
+    jobs:
+      - bundle
+      - yarn
